@@ -4,6 +4,7 @@ import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 import LoginScreen from "./screens/LoginScreen";
 import RegisterScreen from "./screens/RegisterScreen";
+import HomeScreen from "./screens/HomeScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -17,19 +18,14 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator screenOptions={globalScreenOptions}>
+        <Stack.Screen name="Login" component={LoginScreen} />
+        <Stack.Screen name="Register" component={RegisterScreen} />
         <Stack.Screen
-          options={{
-            title: "Sign Up",
-          }}
-          name="Login"
-          component={LoginScreen}
-        />
-        <Stack.Screen
-          options={{
-            title: "Register",
-          }}
-          name="Register"
-          component={RegisterScreen}
+          // options={{
+          //   title: "Home",
+          // }}
+          name="Home"
+          component={HomeScreen}
         />
       </Stack.Navigator>
     </NavigationContainer>

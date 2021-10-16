@@ -2,12 +2,14 @@ import { StatusBar } from "expo-status-bar";
 import React, { useState, useLayoutEffect } from "react";
 import { StyleSheet, View, KeyboardAvoidingView } from "react-native";
 import { Input, Text, Button } from "react-native-elements";
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 
 const RegisterScreen = ({ navigation }) => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [imageUrl, setImageUrl] = useState("");
+  const auth = getAuth();
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -16,6 +18,14 @@ const RegisterScreen = ({ navigation }) => {
   }, [navigation]);
 
   const register = () => {
+    createUserWithEmailAndPassword(auth, email, password)
+      .then((authUser) => {
+        authUser.user.update({
+          displayName: name,
+          photoURL: imageUrl,
+        });
+      })
+      .catch((error) => alert(error.message));
     console.log("Registered");
   };
   return (
